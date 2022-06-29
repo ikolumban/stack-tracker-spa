@@ -1,0 +1,72 @@
+<app-track-stock></app-track-stock>
+<div class="container">
+  <app-spinner [loading]="loading"></app-spinner>
+  <div class="row">
+    <div class="col col-xs-12 col-md 8">
+      <div *ngFor="let stock of trackedStocks">
+        <div class="card mb-4 mr-5">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ stock.companyName }} ({{ stock.symbol }})
+            </h5>
+            <div class="card-text">
+              <div class="row mb-2">
+                <div class="col col-10">
+                  <div class="row">
+                    <div class="col col-xs-6">
+                      Changed today:
+                      {{ getChangedValue(stock) | number: '0.0-1' | sign }}%
+                    </div>
+                    <div class="col col-xs-6">
+                      Opening price:
+                      {{ stock.o | currency: 'USD' }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-xs-6">
+                      Current price:
+                      {{ stock.c | currency: 'USD' }}
+                    </div>
+                    <div class="col col-xs-6">
+                      High price:
+                      {{ stock.h | currency: 'USD' }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-2">
+                  <h2
+                    *ngIf="getChangedValue(stock) >= 0; else elseBlock"
+                    style="color: rgb(20, 209, 20)"
+                  >
+                    🡹
+                  </h2>
+                  <ng-template #elseBlock
+                    ><h2 style="color: rgb(216, 25, 25)">🡻</h2></ng-template
+                  >
+                </div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-auto mr-auto">
+                  <button
+                    class="btn btn-secondary"
+                    (click)="goToSocialSentimentDetails(stock.symbol)"
+                  >
+                    Go to social sentiment details
+                  </button>
+                </div>
+                <div class="col-auto">
+                  <button
+                    (click)="closeTrack(stock.symbol)"
+                    class="btn btn-danger"
+                  >
+                    X
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

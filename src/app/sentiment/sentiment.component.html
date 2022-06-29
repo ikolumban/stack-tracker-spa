@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <div class="card mb-4 mr-5">
+    <div class="card-body">
+      <h4 class="card-title">{{ companyName }} ({{ symbol }})</h4>
+      <app-spinner [loading]="loading"></app-spinner>
+      <span *ngIf="waringMessage">{{ waringMessage }}</span>
+      <div class="card-text">
+        <div class="row">
+          <div class="col col-xs-4" *ngFor="let sentiment of sentiments">
+            <div class="row align-items-center">
+              <div class="col col-8">
+                <p>{{ sentiment.month | month | uppercase }}</p>
+                <p>Change: {{ sentiment.change | sign }}</p>
+                <p>MSPR: {{ sentiment.mspr | number: '0.0-2' }}</p>
+              </div>
+              <div class="col col-4">
+                <h2
+                  *ngIf="sentiment.change >= 0; else elseBlock"
+                  style="color: rgb(20, 209, 20)"
+                >
+                  🡹
+                </h2>
+                <ng-template #elseBlock
+                  ><h2 style="color: rgb(216, 25, 25)">🡻</h2></ng-template
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-warning" (click)="onNavigateBack()">
+    < Back to list of stocks
+  </button>
+</div>

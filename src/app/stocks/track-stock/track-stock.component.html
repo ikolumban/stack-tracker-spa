@@ -1,0 +1,37 @@
+<div class="container mt-4 mb-4">
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <form (ngSubmit)="onSubmit()" #trackForm="ngForm">
+        <div class="form-group">
+          <label for="symbol"
+            >Enter the symbol of a stock to track (i.e. AAPL, TSLA, GOOGL, AMR,
+            RCMT, BPT, RENN, PBT, CEIX, PVL)</label
+          >
+          <input
+            type="text"
+            class="form-control mb-2"
+            id="symbol"
+            ngModel
+            required
+            minlength="1"
+            maxlength="5"
+            name="symbol"
+          />
+          <span
+            *ngIf="warningMessage && trackForm.form.pristine"
+            class="help-block"
+          >
+            {{ warningMessage }}
+          </span>
+        </div>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!trackForm.valid"
+        >
+          Track Stock
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
